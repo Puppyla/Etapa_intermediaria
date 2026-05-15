@@ -3,7 +3,7 @@ Entrega BootCamp II
 
 ## Como executar
 
-1. npm install
+npm install
    
 2.npm start
 
