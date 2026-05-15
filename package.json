@@ -1,0 +1,12 @@
+{
+  "name": "etapa-intermediaria",
+  "version": "1.0.0",
+  "description": "Projeto com frontend estático e API local simples para jogos.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.4"
+  }
+}

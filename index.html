@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Hub 2000</title>
+    <title>Game</title>
     <style>
       :root {
         --bg: #08121f;
@@ -231,6 +231,63 @@
         font-weight: 700;
       }
 
+      .api-panel {
+        display: grid;
+        gap: 18px;
+        padding: 28px;
+        border-radius: 32px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(103, 212, 255, 0.12);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+      }
+
+      .api-panel h2 {
+        margin: 0;
+        font-size: 1.4rem;
+        letter-spacing: 0.08em;
+      }
+
+      .api-toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .api-toolbar button {
+        border: none;
+        border-radius: 999px;
+        padding: 12px 18px;
+        background: rgba(103, 212, 255, 0.16);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .api-output {
+        display: grid;
+        gap: 16px;
+      }
+
+      .api-card {
+        padding: 20px;
+        border-radius: 26px;
+        background: rgba(4, 10, 22, 0.9);
+        border: 1px solid rgba(103, 212, 255, 0.12);
+      }
+
+      .api-card strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--accent);
+        font-size: 1.05rem;
+      }
+
+      .api-error {
+        color: #ff8aa2;
+        font-size: 0.96rem;
+      }
+
       .footer {
         padding: 22px 24px;
         display: flex;
@@ -327,10 +384,62 @@
         </article>
       </section>
 
+      <section class="api-panel">
+        <div class="api-toolbar">
+          <h2>API de jogos</h2>
+          <button id="load-games">Carregar jogos da API</button>
+        </div>
+        <div id="api-output" class="api-output">
+          <div class="api-card">
+            <strong>Pronto para conectar</strong>
+            <p>Use o botão acima para carregar a lista de jogos da API local.</p>
+          </div>
+        </div>
+      </section>
+
       <footer class="footer">
         <span>Interface inspirada em jogos 2000 com cores vibrantes, transparência suave e elementos de menu tecnológico.</span>
         <span>Modo de visualização: Console Futurista</span>
       </footer>
     </div>
+    <script>
+      const apiOutput = document.getElementById('api-output');
+      const loadGamesButton = document.getElementById('load-games');
+
+      async function fetchGames() {
+        apiOutput.innerHTML = '<div class="api-card"><strong>Carregando...</strong><p>Aguarde enquanto carregamos a lista de jogos.</p></div>';
+
+        try {
+          const response = await fetch('/api/games');
+          if (!response.ok) {
+            throw new Error('Falha ao buscar API');
+          }
+
+          const result = await response.json();
+          const games = result.data || [];
+
+          if (games.length === 0) {
+            apiOutput.innerHTML = '<div class="api-card api-error"><strong>Nenhum jogo encontrado</strong><p>Verifique se o servidor está rodando corretamente.</p></div>';
+            return;
+          }
+
+          apiOutput.innerHTML = games
+            .map(
+              (game) => `
+                <div class="api-card">
+                  <strong>${game.title}</strong>
+                  <p>${game.description}</p>
+                  <span>Gênero: ${game.genre}</span>
+                </div>
+              `
+            )
+            .join('');
+        } catch (error) {
+          apiOutput.innerHTML = `<div class="api-card api-error"><strong>Erro na API</strong><p>${error.message}</p></div>`;
+        }
+      }
+
+      loadGamesButton.addEventListener('click', fetchGames);
+    </script>
   </body>
 </html>
