@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jogo Frutiger Aero</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f1727;
+        --panel: rgba(18, 30, 56, 0.96);
+        --panel-light: rgba(48, 88, 180, 0.16);
+        --accent: #6be4ff;
+        --accent-2: #95f0a5;
+        --text: #eef4ff;
+        --muted: #9bb3d3;
+        --border: rgba(107, 228, 255, 0.18);
+        --shadow: 0 24px 120px rgba(0, 0, 0, 0.22);
+        font-family: 'Segoe UI', 'Tahoma', sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top left, rgba(107, 228, 255, 0.18), transparent 25%),
+          radial-gradient(circle at bottom right, rgba(149, 240, 165, 0.18), transparent 20%),
+          linear-gradient(180deg, #101b38 0%, #070c1a 100%);
+        color: var(--text);
+      }
+
+      .page {
+        display: grid;
+        gap: 24px;
+        padding: 32px;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 24px 28px;
+        background: linear-gradient(180deg, rgba(19, 42, 86, 0.95), rgba(24, 56, 120, 0.9));
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 35%);
+        pointer-events: none;
+      }
+
+      .title-group {
+        position: relative;
+        z-index: 1;
+      }
+
+      .title-group h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 2.8vw, 3.4rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .title-group p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .status-chip {
+        position: relative;
+        z-index: 1;
+        min-width: 100px;
+        padding: 14px 20px;
+        text-align: center;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(4, 24, 55, 0.8);
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        font-size: 0.95rem;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 24px;
+      }
+
+      .panel {
+        position: relative;
+        padding: 28px;
+        border-radius: 32px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .panel::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(107, 228, 255, 0.12), transparent 20%),
+          radial-gradient(circle at bottom left, rgba(149, 240, 165, 0.12), transparent 18%);
+        pointer-events: none;
+      }
+
+      .panel h2 {
+        margin: 0 0 20px;
+        font-size: 1.35rem;
+      }
+
+      .game-board {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .tile {
+        aspect-ratio: 1 / 1;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(16, 25, 58, 0.92), rgba(8, 15, 32, 0.95));
+        display: grid;
+        place-items: center;
+        color: var(--text);
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        box-shadow: inset 0 -1px 0 rgba(255,255,255,.08);
+      }
+
+      .controls {
+        display: grid;
+        gap: 16px;
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      button,
+      .stat {
+        appearance: none;
+        border: none;
+        border-radius: 20px;
+        padding: 18px 22px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text);
+        background: linear-gradient(180deg, rgba(54, 98, 176, 0.96), rgba(20, 44, 92, 0.94));
+        cursor: pointer;
+        transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+        box-shadow: 0 16px 34px rgba(8, 16, 36, 0.35);
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        background: linear-gradient(180deg, rgba(77, 148, 223, 0.96), rgba(42, 84, 167, 0.94));
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .stat {
+        display: grid;
+        align-items: center;
+        justify-items: start;
+        gap: 8px;
+        min-height: 120px;
+        background: rgba(12, 22, 48, 0.92);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 2.1rem;
+        color: var(--accent);
+      }
+
+      .stat span {
+        color: var(--muted);
+      }
+
+      .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 14px;
+      }
+
+      .info-list li {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .info-swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      .footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 860px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="title-group">
+          <h1>Frutiger Aero</h1>
+          <p>Interface de jogo simples com visual inspirado nos 2000s.</p>
+        </div>
+        <div class="status-chip">Modo Arcade</div>
+      </header>
+
+      <section class="layout">
+        <article class="panel">
+          <h2>Painel de jogo</h2>
+          <div class="game-board">
+            <div class="tile">A</div>
+            <div class="tile">2</div>
+            <div class="tile">B</div>
+            <div class="tile">X</div>
+            <div class="tile">5</div>
+            <div class="tile">C</div>
+            <div class="tile">9</div>
+            <div class="tile">⭐</div>
+            <div class="tile">7</div>
+            <div class="tile">M</div>
+            <div class="tile">4</div>
+            <div class="tile">8</div>
+            <div class="tile">Q</div>
+            <div class="tile">1</div>
+            <div class="tile">6</div>
+            <div class="tile">Z</div>
+          </div>
+        </article>
+
+        <aside class="panel controls">
+          <h2>Status</h2>
+          <div class="stat">
+            <strong>3:08</strong>
+            <span>Tempo restante</span>
+          </div>
+          <div class="stat">
+            <strong>12</strong>
+            <span>Pontos obtidos</span>
+          </div>
+          <div class="button-row">
+            <button>Iniciar</button>
+            <button>Reiniciar</button>
+          </div>
+          <ul class="info-list">
+            <li><span class="info-swatch"></span> Toque nos blocos para combinar</li>
+            <li><span class="info-swatch"></span> Colete bônus neon</li>
+            <li><span class="info-swatch"></span> Acelere para ganhar combo</li>
+          </ul>
+        </aside>
+      </section>
+
+      <footer class="footer">
+        Design inspirado na estética aero-tech dos anos 2000 com tipografia clean e painéis translúcidos.
+      </footer>
+    </div>
+  </body>
+</html>
