@@ -8,13 +8,11 @@
       :root {
         --bg: #08121f;
         --panel: rgba(8, 16, 31, 0.94);
-        --panel-soft: rgba(61, 126, 255, 0.14);
         --accent: #67d4ff;
-        --accent-2: #f579ff;
         --text: #e9f2ff;
         --muted: #99b4d3;
         --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
-        font-family: 'Arial', 'Helvetica', sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
       }
 
       * {
@@ -38,11 +36,17 @@
         gap: 28px;
       }
 
-      .topbar {
+      .topbar,
+      .api-toolbar,
+      .hero-actions {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
         gap: 18px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .topbar {
+        justify-content: space-between;
       }
 
       .logo {
@@ -60,26 +64,42 @@
         color: var(--accent);
       }
 
-      .nav-pill {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
+      .nav-pill button,
+      .api-toolbar button,
+      .hero-actions button,
+      .game-card button {
+        border-radius: 999px;
+        padding: 12px 18px;
+        cursor: pointer;
+        transition: transform 150ms ease, opacity 150ms ease;
+        font-weight: 700;
       }
 
       .nav-pill button {
         border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 999px;
-        padding: 12px 18px;
         background: rgba(255, 255, 255, 0.04);
         color: var(--text);
         font-size: 0.88rem;
-        cursor: pointer;
-        transition: background 160ms ease, transform 160ms ease;
       }
 
-      .nav-pill button:hover {
-        background: rgba(103, 212, 255, 0.16);
+      .nav-pill button:hover,
+      .hero-actions button:hover,
+      .api-toolbar button:hover,
+      .game-card button:hover {
         transform: translateY(-1px);
+      }
+
+      .hero-actions button {
+        border: none;
+        padding: 16px 24px;
+        color: #08121f;
+        background: linear-gradient(135deg, #67d4ff 0%, #f579ff 100%);
+      }
+
+      .api-toolbar button {
+        border: none;
+        background: rgba(103, 212, 255, 0.16);
+        color: var(--text);
       }
 
       .hero {
@@ -88,13 +108,19 @@
         gap: 22px;
       }
 
+      .hero-card,
+      .game-card,
+      .api-panel,
+      .footer {
+        border-radius: 28px;
+        border: 1px solid rgba(103, 212, 255, 0.14);
+        box-shadow: var(--shadow);
+      }
+
       .hero-card {
         position: relative;
         overflow: hidden;
-        border-radius: 32px;
         background: linear-gradient(140deg, rgba(6, 17, 39, 0.96), rgba(18, 31, 59, 0.94));
-        border: 1px solid rgba(103, 212, 255, 0.14);
-        box-shadow: var(--shadow);
       }
 
       .hero-card::before {
@@ -127,33 +153,11 @@
         line-height: 1.75;
       }
 
-      .hero-actions {
-        margin-top: 28px;
-        display: flex;
-        gap: 18px;
-        flex-wrap: wrap;
-      }
-
-      .hero-actions button {
-        border: none;
-        border-radius: 999px;
-        padding: 16px 24px;
-        font-weight: 700;
-        color: #08121f;
-        background: linear-gradient(135deg, #67d4ff 0%, #f579ff 100%);
-        cursor: pointer;
-        transition: transform 150ms ease, opacity 150ms ease;
-      }
-
-      .hero-actions button:hover {
-        transform: translateY(-1px);
-        opacity: 0.96;
-      }
-
       .stats-panel {
         display: grid;
         gap: 16px;
         padding: 26px;
+        background: var(--panel);
       }
 
       .stat-badge {
@@ -171,9 +175,10 @@
         color: var(--accent);
       }
 
-      .stat-badge span {
+      .stat-badge span,
+      .api-card p,
+      .game-card p {
         color: var(--muted);
-        font-size: 0.93rem;
       }
 
       .game-grid {
@@ -185,9 +190,7 @@
       .game-card {
         position: relative;
         padding: 24px;
-        border-radius: 30px;
         background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(103, 212, 255, 0.16);
         box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18);
         overflow: hidden;
       }
@@ -201,9 +204,7 @@
         pointer-events: none;
       }
 
-      .game-card h3,
-      .game-card p,
-      .game-card button {
+      .game-card > * {
         position: relative;
         z-index: 1;
       }
@@ -214,54 +215,16 @@
         letter-spacing: 0.08em;
       }
 
-      .game-card p {
-        margin: 0 0 18px;
-        color: var(--muted);
-        line-height: 1.6;
-        font-size: 0.95rem;
-      }
-
-      .game-card button {
-        border: 1px solid rgba(103, 212, 255, 0.24);
-        background: rgba(103, 212, 255, 0.14);
-        color: var(--text);
-        padding: 12px 18px;
-        border-radius: 999px;
-        cursor: pointer;
-        font-weight: 700;
-      }
-
       .api-panel {
-        display: grid;
-        gap: 18px;
         padding: 28px;
-        border-radius: 32px;
+        gap: 18px;
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(103, 212, 255, 0.12);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
       }
 
-      .api-panel h2 {
+      .api-toolbar h2 {
         margin: 0;
         font-size: 1.4rem;
         letter-spacing: 0.08em;
-      }
-
-      .api-toolbar {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .api-toolbar button {
-        border: none;
-        border-radius: 999px;
-        padding: 12px 18px;
-        background: rgba(103, 212, 255, 0.16);
-        color: var(--text);
-        cursor: pointer;
-        font-weight: 700;
       }
 
       .api-output {
@@ -285,7 +248,6 @@
 
       .api-error {
         color: #ff8aa2;
-        font-size: 0.96rem;
       }
 
       .footer {
@@ -294,9 +256,8 @@
         justify-content: space-between;
         align-items: center;
         gap: 18px;
-        border-radius: 28px;
         background: rgba(4, 10, 22, 0.88);
-        border: 1px solid rgba(103, 212, 255, 0.1);
+        border-color: rgba(103, 212, 255, 0.1);
       }
 
       .footer span {
@@ -329,20 +290,23 @@
   </head>
   <body>
     <div class="container">
-      <div class="topbar">
+      <header class="topbar">
         <div class="logo"><strong>GAME HUB 2000</strong></div>
-        <div class="nav-pill">
+        <nav class="nav-pill">
           <button>Início</button>
           <button>Jogos</button>
           <button>Perfil</button>
-        </div>
-      </div>
+        </nav>
+      </header>
 
-      <div class="hero">
+      <main class="hero">
         <section class="hero-card">
           <div class="hero-content">
             <h1>Pulse Runner</h1>
-            <p>Uma interface de jogo com visual neon, painel de status e menu de lançamentos. Escolha sua próxima missão e sinta a energia retrô dos anos 2000.</p>
+            <p>
+              Uma interface de jogo com visual neon, painel de status e menu de lançamentos.
+              Escolha sua próxima missão e sinta a energia retrô dos anos 2000.
+            </p>
             <div class="hero-actions">
               <button>Jogar Agora</button>
               <button>Ver Missões</button>
@@ -364,7 +328,7 @@
             <span>Recorde de pontos</span>
           </div>
         </aside>
-      </div>
+      </main>
 
       <section class="game-grid">
         <article class="game-card">
@@ -402,40 +366,37 @@
         <span>Modo de visualização: Console Futurista</span>
       </footer>
     </div>
+
     <script>
       const apiOutput = document.getElementById('api-output');
       const loadGamesButton = document.getElementById('load-games');
 
       async function fetchGames() {
-        apiOutput.innerHTML = '<div class="api-card"><strong>Carregando...</strong><p>Aguarde enquanto carregamos a lista de jogos.</p></div>';
+        apiOutput.innerHTML =
+          '<div class="api-card"><strong>Carregando...</strong><p>Aguarde enquanto carregamos a lista de jogos.</p></div>';
 
         try {
           const response = await fetch('/api/games');
-          if (!response.ok) {
-            throw new Error('Falha ao buscar API');
-          }
+          if (!response.ok) throw new Error('Falha ao buscar API');
 
           const result = await response.json();
           const games = result.data || [];
 
           if (games.length === 0) {
-            apiOutput.innerHTML = '<div class="api-card api-error"><strong>Nenhum jogo encontrado</strong><p>Verifique se o servidor está rodando corretamente.</p></div>';
+            apiOutput.innerHTML =
+              '<div class="api-card api-error"><strong>Nenhum jogo encontrado</strong><p>Verifique se o servidor está rodando corretamente.</p></div>';
             return;
           }
 
           apiOutput.innerHTML = games
             .map(
-              (game) => `
-                <div class="api-card">
-                  <strong>${game.title}</strong>
-                  <p>${game.description}</p>
-                  <span>Gênero: ${game.genre}</span>
-                </div>
-              `
+              (game) =>
+                `<div class="api-card"><strong>${game.title}</strong><p>${game.description}</p><span>Gênero: ${game.genre}</span></div>`
             )
             .join('');
         } catch (error) {
-          apiOutput.innerHTML = `<div class="api-card api-error"><strong>Erro na API</strong><p>${error.message}</p></div>`;
+          apiOutput.innerHTML =
+            `<div class="api-card api-error"><strong>Erro na API</strong><p>${error.message}</p></div>`;
         }
       }
 
