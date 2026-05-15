@@ -3,20 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jogo Frutiger Aero</title>
+    <title>Game Hub 2000</title>
     <style>
       :root {
-        color-scheme: dark;
-        --bg: #0f1727;
-        --panel: rgba(18, 30, 56, 0.96);
-        --panel-light: rgba(48, 88, 180, 0.16);
-        --accent: #6be4ff;
-        --accent-2: #95f0a5;
-        --text: #eef4ff;
-        --muted: #9bb3d3;
-        --border: rgba(107, 228, 255, 0.18);
-        --shadow: 0 24px 120px rgba(0, 0, 0, 0.22);
-        font-family: 'Segoe UI', 'Tahoma', sans-serif;
+        --bg: #08121f;
+        --panel: rgba(8, 16, 31, 0.94);
+        --panel-soft: rgba(61, 126, 255, 0.14);
+        --accent: #67d4ff;
+        --accent-2: #f579ff;
+        --text: #e9f2ff;
+        --muted: #99b4d3;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+        font-family: 'Arial', 'Helvetica', sans-serif;
       }
 
       * {
@@ -26,273 +24,312 @@
       body {
         margin: 0;
         min-height: 100vh;
-        background: radial-gradient(circle at top left, rgba(107, 228, 255, 0.18), transparent 25%),
-          radial-gradient(circle at bottom right, rgba(149, 240, 165, 0.18), transparent 20%),
-          linear-gradient(180deg, #101b38 0%, #070c1a 100%);
+        background: radial-gradient(circle at 28% 22%, rgba(103, 212, 255, 0.24), transparent 18%),
+          radial-gradient(circle at 78% 14%, rgba(245, 121, 255, 0.18), transparent 16%),
+          linear-gradient(180deg, #06101c 0%, #091520 35%, #07101c 100%);
         color: var(--text);
       }
 
-      .page {
-        display: grid;
-        gap: 24px;
-        padding: 32px;
+      .container {
         max-width: 1180px;
         margin: 0 auto;
+        padding: 40px 24px 32px;
+        display: grid;
+        gap: 28px;
       }
 
-      header {
+      .topbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
-        padding: 24px 28px;
-        background: linear-gradient(180deg, rgba(19, 42, 86, 0.95), rgba(24, 56, 120, 0.9));
-        border: 1px solid var(--border);
-        border-radius: 30px;
-        box-shadow: var(--shadow);
-        position: relative;
-        overflow: hidden;
+        gap: 18px;
       }
 
-      header::before {
+      .logo {
+        padding: 14px 18px;
+        border-radius: 20px;
+        border: 1px solid rgba(103, 212, 255, 0.18);
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: inset 0 0 0 1px rgba(103, 212, 255, 0.05);
+      }
+
+      .logo strong {
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        color: var(--accent);
+      }
+
+      .nav-pill {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .nav-pill button {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 12px 18px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        font-size: 0.88rem;
+        cursor: pointer;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .nav-pill button:hover {
+        background: rgba(103, 212, 255, 0.16);
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 22px;
+      }
+
+      .hero-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        background: linear-gradient(140deg, rgba(6, 17, 39, 0.96), rgba(18, 31, 59, 0.94));
+        border: 1px solid rgba(103, 212, 255, 0.14);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 35%);
+        background: radial-gradient(circle at 12% 16%, rgba(103, 212, 255, 0.18), transparent 18%),
+          radial-gradient(circle at 85% 20%, rgba(245, 121, 255, 0.16), transparent 18%);
         pointer-events: none;
       }
 
-      .title-group {
+      .hero-content {
         position: relative;
         z-index: 1;
+        padding: 40px 38px;
       }
 
-      .title-group h1 {
+      .hero-content h1 {
         margin: 0;
-        font-size: clamp(2.2rem, 2.8vw, 3.4rem);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        font-size: clamp(2.4rem, 4vw, 4.2rem);
+        line-height: 0.98;
+        letter-spacing: 0.12em;
       }
 
-      .title-group p {
-        margin: 10px 0 0;
+      .hero-content p {
+        margin: 18px 0 0;
+        max-width: 560px;
         color: var(--muted);
         font-size: 1rem;
+        line-height: 1.75;
       }
 
-      .status-chip {
-        position: relative;
-        z-index: 1;
-        min-width: 100px;
-        padding: 14px 20px;
-        text-align: center;
+      .hero-actions {
+        margin-top: 28px;
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .hero-actions button {
+        border: none;
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: rgba(4, 24, 55, 0.8);
-        color: var(--accent);
+        padding: 16px 24px;
         font-weight: 700;
-        letter-spacing: 0.08em;
-        font-size: 0.95rem;
+        color: #08121f;
+        background: linear-gradient(135deg, #67d4ff 0%, #f579ff 100%);
+        cursor: pointer;
+        transition: transform 150ms ease, opacity 150ms ease;
       }
 
-      .layout {
+      .hero-actions button:hover {
+        transform: translateY(-1px);
+        opacity: 0.96;
+      }
+
+      .stats-panel {
         display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: 24px;
+        gap: 16px;
+        padding: 26px;
       }
 
-      .panel {
+      .stat-badge {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 22px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .stat-badge strong {
+        font-size: 1.6rem;
+        color: var(--accent);
+      }
+
+      .stat-badge span {
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .game-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .game-card {
         position: relative;
-        padding: 28px;
-        border-radius: 32px;
-        border: 1px solid var(--border);
-        background: var(--panel);
-        box-shadow: var(--shadow);
+        padding: 24px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(103, 212, 255, 0.16);
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18);
         overflow: hidden;
       }
 
-      .panel::before {
+      .game-card::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at top right, rgba(107, 228, 255, 0.12), transparent 20%),
-          radial-gradient(circle at bottom left, rgba(149, 240, 165, 0.12), transparent 18%);
+        background: radial-gradient(circle at top left, rgba(103, 212, 255, 0.12), transparent 18%),
+          radial-gradient(circle at bottom right, rgba(245, 121, 255, 0.12), transparent 16%);
         pointer-events: none;
       }
 
-      .panel h2 {
-        margin: 0 0 20px;
-        font-size: 1.35rem;
+      .game-card h3,
+      .game-card p,
+      .game-card button {
+        position: relative;
+        z-index: 1;
       }
 
-      .game-board {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
-      }
-
-      .tile {
-        aspect-ratio: 1 / 1;
-        border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: linear-gradient(180deg, rgba(16, 25, 58, 0.92), rgba(8, 15, 32, 0.95));
-        display: grid;
-        place-items: center;
-        color: var(--text);
+      .game-card h3 {
+        margin: 0 0 12px;
         font-size: 1.15rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        box-shadow: inset 0 -1px 0 rgba(255,255,255,.08);
+        letter-spacing: 0.08em;
       }
 
-      .controls {
-        display: grid;
-        gap: 16px;
-      }
-
-      .button-row {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-      }
-
-      button,
-      .stat {
-        appearance: none;
-        border: none;
-        border-radius: 20px;
-        padding: 18px 22px;
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: var(--text);
-        background: linear-gradient(180deg, rgba(54, 98, 176, 0.96), rgba(20, 44, 92, 0.94));
-        cursor: pointer;
-        transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
-        box-shadow: 0 16px 34px rgba(8, 16, 36, 0.35);
-      }
-
-      button:hover {
-        transform: translateY(-1px);
-        background: linear-gradient(180deg, rgba(77, 148, 223, 0.96), rgba(42, 84, 167, 0.94));
-      }
-
-      button:active {
-        transform: translateY(0);
-      }
-
-      .stat {
-        display: grid;
-        align-items: center;
-        justify-items: start;
-        gap: 8px;
-        min-height: 120px;
-        background: rgba(12, 22, 48, 0.92);
-      }
-
-      .stat strong {
-        display: block;
-        font-size: 2.1rem;
-        color: var(--accent);
-      }
-
-      .stat span {
+      .game-card p {
+        margin: 0 0 18px;
         color: var(--muted);
+        line-height: 1.6;
+        font-size: 0.95rem;
       }
 
-      .info-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: grid;
-        gap: 14px;
-      }
-
-      .info-list li {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 16px 18px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-      .info-swatch {
-        width: 12px;
-        height: 12px;
+      .game-card button {
+        border: 1px solid rgba(103, 212, 255, 0.24);
+        background: rgba(103, 212, 255, 0.14);
+        color: var(--text);
+        padding: 12px 18px;
         border-radius: 999px;
-        background: var(--accent);
+        cursor: pointer;
+        font-weight: 700;
       }
 
       .footer {
-        text-align: center;
-        color: var(--muted);
-        font-size: 0.92rem;
+        padding: 22px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        border-radius: 28px;
+        background: rgba(4, 10, 22, 0.88);
+        border: 1px solid rgba(103, 212, 255, 0.1);
       }
 
-      @media (max-width: 860px) {
-        .layout {
+      .footer span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .game-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .topbar,
+        .footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .game-grid {
           grid-template-columns: 1fr;
         }
       }
     </style>
   </head>
   <body>
-    <div class="page">
-      <header>
-        <div class="title-group">
-          <h1>Frutiger Aero</h1>
-          <p>Interface de jogo simples com visual inspirado nos 2000s.</p>
+    <div class="container">
+      <div class="topbar">
+        <div class="logo"><strong>GAME HUB 2000</strong></div>
+        <div class="nav-pill">
+          <button>Início</button>
+          <button>Jogos</button>
+          <button>Perfil</button>
         </div>
-        <div class="status-chip">Modo Arcade</div>
-      </header>
+      </div>
 
-      <section class="layout">
-        <article class="panel">
-          <h2>Painel de jogo</h2>
-          <div class="game-board">
-            <div class="tile">A</div>
-            <div class="tile">2</div>
-            <div class="tile">B</div>
-            <div class="tile">X</div>
-            <div class="tile">5</div>
-            <div class="tile">C</div>
-            <div class="tile">9</div>
-            <div class="tile">⭐</div>
-            <div class="tile">7</div>
-            <div class="tile">M</div>
-            <div class="tile">4</div>
-            <div class="tile">8</div>
-            <div class="tile">Q</div>
-            <div class="tile">1</div>
-            <div class="tile">6</div>
-            <div class="tile">Z</div>
+      <div class="hero">
+        <section class="hero-card">
+          <div class="hero-content">
+            <h1>Pulse Runner</h1>
+            <p>Uma interface de jogo com visual neon, painel de status e menu de lançamentos. Escolha sua próxima missão e sinta a energia retrô dos anos 2000.</p>
+            <div class="hero-actions">
+              <button>Jogar Agora</button>
+              <button>Ver Missões</button>
+            </div>
           </div>
-        </article>
+        </section>
 
-        <aside class="panel controls">
-          <h2>Status</h2>
-          <div class="stat">
-            <strong>3:08</strong>
-            <span>Tempo restante</span>
+        <aside class="stats-panel">
+          <div class="stat-badge">
+            <strong>Lvl 08</strong>
+            <span>Ranking global</span>
           </div>
-          <div class="stat">
-            <strong>12</strong>
-            <span>Pontos obtidos</span>
+          <div class="stat-badge">
+            <strong>+18%</strong>
+            <span>Progresso de combo</span>
           </div>
-          <div class="button-row">
-            <button>Iniciar</button>
-            <button>Reiniciar</button>
+          <div class="stat-badge">
+            <strong>451</strong>
+            <span>Recorde de pontos</span>
           </div>
-          <ul class="info-list">
-            <li><span class="info-swatch"></span> Toque nos blocos para combinar</li>
-            <li><span class="info-swatch"></span> Colete bônus neon</li>
-            <li><span class="info-swatch"></span> Acelere para ganhar combo</li>
-          </ul>
         </aside>
+      </div>
+
+      <section class="game-grid">
+        <article class="game-card">
+          <h3>Neon Sprint</h3>
+          <p>Corra por pistas flutuantes com obstáculos de luz e acelere para vencer em ritmo acelerado.</p>
+          <button>Abrir</button>
+        </article>
+        <article class="game-card">
+          <h3>Cyber Puzzle</h3>
+          <p>Encaixe circuitos e complete sequências com estilo minimalista e som de sintetizador.</p>
+          <button>Abrir</button>
+        </article>
+        <article class="game-card">
+          <h3>Retro Defense</h3>
+          <p>Defenda o hub contra invasores digitais com torres de energia e efeitos de néon.</p>
+          <button>Abrir</button>
+        </article>
       </section>
 
       <footer class="footer">
-        Design inspirado na estética aero-tech dos anos 2000 com tipografia clean e painéis translúcidos.
+        <span>Interface inspirada em jogos 2000 com cores vibrantes, transparência suave e elementos de menu tecnológico.</span>
+        <span>Modo de visualização: Console Futurista</span>
       </footer>
     </div>
   </body>
